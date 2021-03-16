@@ -33,16 +33,11 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
-const isLoggedIn = () => {
-  return JSON.parse(localStorage.getItem("user"));
-};
-
 const auth = {
   register,
   login,
   logout,
   getCurrentUser,
-  isLoggedIn,
 };
 
 export default auth;
