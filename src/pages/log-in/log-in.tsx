@@ -56,8 +56,8 @@ const SignIn: React.FC<Props> = ({ history }) => {
         window.location.reload();
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          setErrorMessage("User not exist");
+        if (error) {
+          setErrorMessage(error.response.data.message);
         }
       });
   };
