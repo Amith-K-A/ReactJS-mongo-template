@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import SignIn from "./pages/log-in/log-in";
 import SignUp from "./pages/sign-up/sign-up";
-import Home from "./pages/home/home";
+import Home from "./pages/dashboard/home";
 import PrivateRoute from "./services/private-router/private-router";
 import GenericNotFound from "./pages/generic-not-found/generic-not-found";
 
