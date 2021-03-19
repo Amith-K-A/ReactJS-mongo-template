@@ -52,7 +52,8 @@ const SignIn: React.FC<Props> = ({ history }) => {
 
     await AuthService.login(userName, password)
       .then(() => {
-        history.push("/home");
+        
+        history.push("/project");
         window.location.reload();
       })
       .catch((error) => {
