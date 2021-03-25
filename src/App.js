@@ -7,6 +7,7 @@ import GenericNotFound from "./pages/generic-not-found/generic-not-found";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Project from "./pages/project/project";
 import { BrowserRouter } from "react-router-dom";
+import userform from "./pages/user-forms/user-forms";
 
 const App = ({ location }) => {
   return (
@@ -14,8 +15,9 @@ const App = ({ location }) => {
       <Switch>
         <Route exact path={["/", "/login"]} component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
-        <PrivateRoute exact path="/project" component={Project} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/project" component={Project} name={"Project"} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} name={"Dashboard"} />
+        <PrivateRoute exact path="/userform" component={userform} name={"User Form"} />
         <PrivateRoute exact path="/404" component={GenericNotFound} />
         <Redirect to="/404" />
       </Switch>

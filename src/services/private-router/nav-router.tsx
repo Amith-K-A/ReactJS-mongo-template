@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -16,7 +17,9 @@ import { Drawer } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AuthService from "../auth-service";
 
-const NavRouter: React.FC = () => {
+
+const NavRouter: React.FC<any> = ({ name }) => {
+  const location = useLocation();
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -127,7 +130,7 @@ const NavRouter: React.FC = () => {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Dashboard
+              {name}
             </Typography>
             <IconButton color="inherit">
               <Badge color="secondary">
@@ -149,11 +152,10 @@ const NavRouter: React.FC = () => {
             </IconButton>
           </div>
           <Divider />
-          <List>{mainListItems}</List>
+          <List>{mainListItems(location.pathname)}</List>
           <Divider />
           <List>{secondaryListItems}</List>
         </Drawer>
-        <>hiii</>
       </div>
     </>
   );

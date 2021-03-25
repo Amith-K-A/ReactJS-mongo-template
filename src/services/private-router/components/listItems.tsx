@@ -1,4 +1,3 @@
-import React from "react";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -6,7 +5,8 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 // import PeopleIcon from "@material-ui/icons/People";
 // import BarChartIcon from "@material-ui/icons/BarChart";
 // import LayersIcon from "@material-ui/icons/Layers";
-import AccountTreeSharpIcon from '@material-ui/icons/AccountTreeSharp';
+import FormatAlignRightIcon from "@material-ui/icons/FormatAlignRight";
+import AccountTreeSharpIcon from "@material-ui/icons/AccountTreeSharp";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
 const styles = {
@@ -20,31 +20,47 @@ const styles = {
     color: "black",
     textDecoration: "none",
   },
+  active: {
+    color: "black",
+  }
 };
-export const mainListItems = (
-  <div>
-    <Link to="/project" style={styles.link}>
-      <List>
-        <ListItem button>
-          <ListItemIcon>
-            <AccountTreeSharpIcon />
-          </ListItemIcon>
-          <ListItemText primary="Project" />
-        </ListItem>
-      </List>
-    </Link>
-    <Link to="/dashboard" style={styles.link}>
-      <List>
-        <ListItem button>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-      </List>
-    </Link>
-  </div>
-);
+export const mainListItems = (pathName: any) => {
+  
+  return (
+    <div>
+      <Link to="/project" style={styles.link}>
+        <List>
+          <ListItem button selected={"/project" === pathName}>
+            <ListItemIcon>
+              <AccountTreeSharpIcon />
+            </ListItemIcon>
+            <ListItemText primary="Project" />
+          </ListItem>
+        </List>
+      </Link>
+      <Link to="/dashboard" style={styles.link}>
+        <List>
+          <ListItem button selected={"/dashboard" === pathName}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+        </List>
+      </Link>
+      <Link to="/userform" style={styles.link}>
+        <List>
+          <ListItem button selected={"/userform" === pathName}>
+            <ListItemIcon>
+              <FormatAlignRightIcon />
+            </ListItemIcon>
+            <ListItemText primary="User Forms" />
+          </ListItem>
+        </List>
+      </Link>
+    </div>
+  );
+};
 
 export const secondaryListItems = (
   <div>

@@ -11,6 +11,11 @@ import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+interface Props {
+  component: any,
+  name?: string,
+}
+
 const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
@@ -29,7 +34,7 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
+const PrivateRoute: React.FC<Props> = ({ component: Component,  name="", ...rest }) => {
   // Add your own authentication on the below line.
   const isLoggedIn = AuthService.getCurrentUser();
   const classes = useStyles();
@@ -39,7 +44,7 @@ const PrivateRoute: React.FC<any> = ({ component: Component, ...rest }) => {
       render={(props) =>
         isLoggedIn ? (
           <Wrapper>
-            <NavRouter />
+            <NavRouter name={name} />
             <main className={classes.content}>
               <Container className={classes.container}>
               <div className={classes.appBarSpacer} />
