@@ -18,9 +18,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to amith application." });
 });
-
-// set port, listen for requests
-const PORT = process.env.port || 4000;
+app.set('port', (process.env.PORT || 4000));
+// // set port, listen for requests
+// const PORT = process.env.port || 4000;
 
 db.mongoose
   .connect(process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -80,7 +80,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("../build"));
 }
 
-app.listen(PORT, () => {
+app.listen(app.get('port'), () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
