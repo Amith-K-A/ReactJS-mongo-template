@@ -23,7 +23,7 @@ app.set('port', (process.env.PORT || 4000));
 // const PORT = process.env.port || 4000;
 
 db.mongoose
-  .connect(process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(process.env.MONGODB_URI || `mongodb+srv://feedone:123@cluster0.2qi9m.mongodb.net/feedback?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
