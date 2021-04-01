@@ -3,7 +3,7 @@ import { useState } from "react";
 import Card from "./card";
 import update from "immutability-helper";
 import { Button } from "@material-ui/core";
-import Model from "../../components/form/model";
+import Model from "./form/model";
 import styled from "styled-components";
 import Project from "../../../api/api/project";
 import auth from "../../../services/auth-service";
@@ -19,10 +19,14 @@ const HeaderStyle = styled.div`
 `;
 
 const ButtonStyle = styled.div`
-margin-top: 15px;
+  display: flex;
   > * + * {
-    margin-top: 15px;
+    margin-left: 15px;
   }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
 `;
 
 const style = {
@@ -32,10 +36,11 @@ const style = {
 const Drag: React.FC = () => {
   const user = auth.getCurrentUser();
   const [open, setOpen] = React.useState(false);
-  const [openFirst, setOpenFirst] = React.useState(false);
+  // const [openFirst, setOpenFirst] = React.useState(false);
   const [label, setLabel] = React.useState("");
   const [cards, setCards] = useState<any>([]);
   const [projectId, serProjectId] = useState<any>("");
+  const [component, setComponent] = useState<any>("");
 
   useEffect(() => {
     Project.getForm(user.id).then((response) => {
@@ -57,22 +62,18 @@ const Drag: React.FC = () => {
     setCards(newArr); // ??
   };
 
-  const handleClickOpen = () => {
-    if (!label) {
-      setOpenFirst(true);
-    } else {
-      setOpen(true);
-    }
+  const handleClickOpen = (component: string) => {
+    setOpen(true);
+    setComponent(component);
   };
 
-  const handleClose = (text: string) => {
-    updateFieldChanged("add", text);
+  const handleClose = (text?: string) => {
     setOpen(false);
-  };
-
-  const handleFirstClose = (text: string) => {
-    setLabel(text);
-    setOpenFirst(false);
+    if (!label && text) {
+      setLabel(text);
+    } else if (text) {
+      updateFieldChanged("add", text);
+    }
   };
 
   const handleSubmit = async (event: any) => {
@@ -96,34 +97,48 @@ const Drag: React.FC = () => {
       })
     );
   };
-  const checkItem = cards.length !== 0;
+  // const checkItem = cards.length !== 0;
   return (
     <>
-      <div style={style}>
-        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-          {label && <HeaderStyle>{label}</HeaderStyle>}
-          {cards.map((card: any, i: any) => (
-            <Card key={card.id} index={i} id={card.id} text={card.text} moveCard={moveCard} />
-          ))}
-          {checkItem && (
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              submit
-            </Button>
-          )}
-        </form>
-        <ButtonStyle>
-          <Button fullWidth variant="contained" color="primary" onClick={handleClickOpen}>
-            +
-          </Button>
-          {checkItem && (
-            <Button fullWidth variant="contained" color="primary" onClick={() => updateFieldChanged("sub", "")}>
-              -
-            </Button>
-          )}
-        </ButtonStyle>
-        <Model open={open} handleClose={handleClose} />
-        <Model open={openFirst} handleClose={handleFirstClose} />
-      </div>
+      <Wrapper>
+        <div style={style}>
+          <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+            {label && <HeaderStyle>{label}</HeaderStyle>}
+            {cards.map((card: any, i: any) => (
+              <Card key={card.id} index={i} id={card.id} text={card.text} moveCard={moveCard} />
+            ))}
+            {label && (
+              <Button type="submit" fullWidth variant="contained" color="primary">
+                SAVE
+              </Button>
+            )}
+          </form>
+        </div>
+        <hr />
+        <div>
+          <ButtonStyle>
+            {label ? (
+              <>
+                <Button fullWidth variant="contained" color="primary" onClick={() => handleClickOpen("TextBox")}>
+                  Add Text Box
+                </Button>
+                <Button fullWidth variant="contained" color="primary" onClick={() => handleClickOpen("DropDown")}>
+                  Add Drop Down
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button fullWidth variant="contained" color="primary" onClick={() => handleClickOpen("Label")}>
+                  + Create Project
+                </Button>
+              </>
+            )}
+          </ButtonStyle>
+        </div>
+      </Wrapper>
+      <>
+        <Model open={open} handleClose={handleClose} component={component} />
+      </>
     </>
   );
 };

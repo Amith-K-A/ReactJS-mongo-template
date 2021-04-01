@@ -12,14 +12,14 @@ interface Props {
   handleClose: (text: string) => void;
 }
 
-const Model: React.FC<Props> = ({ open, handleClose }) => {
+const TextBoxComponent: React.FC<Props> = ({ open, handleClose }) => {
   const [text, setText] = useState("");
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add</DialogTitle>
+      <Dialog disableBackdropClick  maxWidth={"sm"} fullWidth open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Add Text Box to Form</DialogTitle>
         <DialogContent>
-          <DialogContentText>Added Label for the field.</DialogContentText>
+          <DialogContentText>Enter Label for the Text Box.</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -40,10 +40,13 @@ const Model: React.FC<Props> = ({ open, handleClose }) => {
           >
             Add
           </Button>
+          <Button onClick={() => handleClose("")} color="primary">
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 };
 
-export default Model;
+export default TextBoxComponent;

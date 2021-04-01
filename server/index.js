@@ -19,15 +19,22 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to amith application." });
 });
 
-require("./routes/auth-routes")(app);
-require("./routes/user-routes")(app);
-require("./routes/project")(app);
-
 // set port, listen for requests
-const PORT = 4000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+const PORT = process.env.port || 4000;
+
+db.mongoose
+  .connect(process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Successfully connect to MongoDB.");
+    initial();
+  })
+  .catch((err) => {
+    console.error("Connection error", err);
+    process.exit();
+  });
 
 function initial() {
   Role.estimatedDocumentCount((err, count) => {
@@ -65,19 +72,17 @@ function initial() {
   });
 }
 
-db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Successfully connect to MongoDB.");
-    initial();
-  })
-  .catch((err) => {
-    console.error("Connection error", err);
-    process.exit();
-  });
+require("./routes/auth-routes")(app);
+require("./routes/user-routes")(app);
+require("./routes/project")(app);
 
-  //https://bezkoder.com/node-js-mongodb-auth-jwt/
-  //https://bezkoder.com/react-hooks-jwt-auth/
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../build"));
+}
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+
+//https://bezkoder.com/node-js-mongodb-auth-jwt/
+//https://bezkoder.com/react-hooks-jwt-auth/
