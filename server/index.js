@@ -81,7 +81,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(app.get('port'), () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on port`);
 });
 
 //https://bezkoder.com/node-js-mongodb-auth-jwt/
