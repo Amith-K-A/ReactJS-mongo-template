@@ -13,7 +13,7 @@
     "cors": "^2.8.5",
     "immutability-helper": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.0",
+    "mongoose": "^5.11.15",
     "react": "^17.0.1",
     "react-dnd": "^14.0.1",
     "react-dnd-html5-backend": "^14.0.0",
@@ -27,13 +27,13 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "install-client": "npm start",
+    "install-client": "npm install",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "node-env-run server --exec nodemon | pino-colada",
+    "server": "node-env-run server --exec nodemon",
     "start": "react-scripts start",
     "dev": "run-p server start",
-    "heroku-postbuild":"npm run install-client && npm run build"
+    "heroku-postbuild": "npm run install-client && react-scripts build"
   },
   "eslintConfig": {
     "extends": [
