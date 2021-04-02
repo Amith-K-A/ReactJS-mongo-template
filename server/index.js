@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 app.set('port', (process.env.PORT || 4000));
 // // set port, listen for requests
 // const PORT = process.env.port || 4000;
-
+console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiii", process.env.MONGODB_URI, process.env.PORT, process.env.NODE_ENV);
 db.mongoose
   .connect(process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     useNewUrlParser: true,
