@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 });
 app.set('port', (process.env.PORT || 4000));
 app.set('env', (process.env.NODE_ENV));
-app.set('mongo', (process.env.MONGODB_URI));
+app.set('mongo', (process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`));
 // // set port, listen for requests
 db.mongoose
   .connect(app.get('mongo'), {
