@@ -35,7 +35,7 @@
     "server": "node-env-run server --exec nodemon",
     "start": "react-scripts start",
     "dev": "run-p server start",
-    "heroku-postbuild": "npm run install-client && react-scripts build"
+    "heroku-postbuild": "npm install -g serve"
   },
   "eslintConfig": {
     "extends": [
