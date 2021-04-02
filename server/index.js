@@ -19,11 +19,11 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to amith application." });
 });
 app.set('port', (process.env.PORT || 4000));
+app.set('env', (process.env.NODE_ENV));
+app.set('mongo', (process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`));
 // // set port, listen for requests
-// const PORT = process.env.port || 4000;
-console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiii", process.env.MONGODB_URI, process.env.PORT, process.env.NODE_ENV);
 db.mongoose
-  .connect(process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(app.get('mongo'), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -76,7 +76,7 @@ require("./routes/auth-routes")(app);
 require("./routes/user-routes")(app);
 require("./routes/project")(app);
 
-if (process.env.NODE_ENV === "production") {
+if (app.get('env') === "production") {
   app.use(express.static("../build"));
 }
 
