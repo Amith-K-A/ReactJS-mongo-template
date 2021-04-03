@@ -5,6 +5,7 @@ const dbConfig = require("./config/db-config");
 const app = express();
 const db = require("./models");
 const Role = db.role;
+const path = require("path");
 
 app.use(cors());
 
@@ -18,12 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to amith application." });
 });
-app.set('port', (process.env.PORT || 4000));
-app.set('env', (process.env.NODE_ENV));
-app.set('mongo', (process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`));
+app.set("port", process.env.PORT || 4000);
+app.set("env", process.env.NODE_ENV);
+app.set("mongo", process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`);
 // // set port, listen for requests
 db.mongoose
-  .connect(app.get('mongo'), {
+  .connect(app.get("mongo"), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -76,11 +77,14 @@ require("./routes/auth-routes")(app);
 require("./routes/user-routes")(app);
 require("./routes/project")(app);
 
-if (app.get('env') === "production") {
-  app.use(express.static("../build"));
+if (app.get("env") === "production") {
+  app.use(express.static(path.join(__dirname, "../build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build"));
+  });
 }
 
-app.listen(app.get('port'), () => {
+app.listen(app.get("port"), () => {
   console.log(`Server is running on port`);
 });
 
