@@ -28,13 +28,13 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node server/index.js && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node-env-run server --exec nodemon | pino-colada",
     "dev": "run-p server start",
-    "heroku-prebuild": "NPM_CONFIG_PRODUCTION=false npm install npm && npm run build"
+    "heroku-prebuild": "NPM_CONFIG_PRODUCTION=false npm install npm && npm run build",
   },
   "eslintConfig": {
     "extends": [
@@ -66,8 +66,5 @@
     "npm-run-all": "^4.1.5",
     "pino-colada": "^2.1.0"
   },
-  "engines": {
-    "node": "10.16.0"
-},
   "proxy": "http://localhost:4000"
 }
