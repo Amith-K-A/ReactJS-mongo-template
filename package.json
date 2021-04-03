@@ -28,13 +28,13 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "heroku-prebuild": "nNPM_CONFIG_PRODUCTION=false npm install --prefix src npm build --prefix src",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd src && npm run build",
+    "install-client": "cd sc && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node server/index.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "node-env-run server --exec nodemon | pino-colada",
-    "dev": "run-p server start"
+    "client": "cd src && npm start",
+    "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon server.js\" \"npm run client\""
   },
 
   "eslintConfig": {
