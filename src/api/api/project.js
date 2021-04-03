@@ -1,9 +1,11 @@
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 
+const API_URL = process.env.NODE_ENV !== "production" && "http://localhost:4000";
+
 const addForm = (label, item, userId) => {
   return axios.post(
-    "/project/add",
+    API_URL + "/project/add",
     {
       label,
       item,
@@ -18,7 +20,7 @@ const addForm = (label, item, userId) => {
 const getForm = (userId) => {
   return axios
     .get(
-      "/project/get",
+      API_URL + "/project/get",
       {
         headers: authHeader(),
         params: {
@@ -39,7 +41,7 @@ const getForm = (userId) => {
 
 const updateForm = (label, item, projectId) => {
   return axios.post(
-    "/project/update",
+    API_URL + "/project/update",
     {
       label,
       item,
