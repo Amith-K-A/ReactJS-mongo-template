@@ -28,7 +28,7 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "heroku-prebuild": "npm install --prefix scr && npm run build",
+    "heroku-prebuild": "nNPM_CONFIG_PRODUCTION=false &&  cd src && npm install && npm build",
     "start": "node server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
