@@ -1,5 +1,8 @@
 import axios from "axios";
 
+const API_URL =
+  process.env.NODE_ENV === "production" ? "http://localhost:" + process.env.PORT + "/" : "http://localhost:4000/";
+
 const register = (username, email, password) => {
   return axios.post("/signup", {
     username,
@@ -10,7 +13,7 @@ const register = (username, email, password) => {
 
 const login = (username, password) => {
   return axios
-    .post( "/signin", {
+    .post(API_URL + "signin", {
       username,
       password,
     })
