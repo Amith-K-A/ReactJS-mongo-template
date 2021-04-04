@@ -11,10 +11,7 @@
     "@types/styled-components": "^5.1.9",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
     "immutability-helper": "^3.1.1",
-    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.15",
     "react": "^17.0.1",
     "react-dnd": "^14.0.1",
@@ -28,15 +25,11 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd src && npm run build",
-    "install-client": "cd src && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "node server/index.js",
-    "client": "cd src && npm start",
-    "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon server.js\" \"npm run client\""
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
