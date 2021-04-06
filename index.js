@@ -15,10 +15,6 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to amith application." });
-});
 app.set("port", process.env.PORT || 4000);
 app.set("env", process.env.NODE_ENV);
 app.set("mongo", process.env.MONGODB_URI || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`);
@@ -72,17 +68,21 @@ function initial() {
     }
   });
 }
+app.use("*", express.static('client/build'));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
+if (app.get("env") === "production") {
+  app.use("*", express.static(path.join(__dirname, "../src", "build")));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../src", "build", "index.html"));
+  });
+}
 
 require("./routes/auth-routes")(app);
 require("./routes/user-routes")(app);
 require("./routes/project")(app);
-
-if (app.get("env") === "production") {
-  app.use("*", express.static(path.join(__dirname, "client/build")));
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build", "index.html"));
-  });
-}
 
 app.listen(app.get("port"), () => {
   console.log(`Server is running on port`);
