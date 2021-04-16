@@ -44,8 +44,10 @@ const UserForms: React.FC = () => {
   if (loading) {
     return <>"loading...."</>;
   }
+  if (!project) {
+    return <>no project</>;
+  }
   const { item, label } = project;
-
   return (
     <>
       <HeaderStyle>{label}</HeaderStyle>
